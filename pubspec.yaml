@@ -1,0 +1,28 @@
+name: weather_app
+description: "A weather application take-home: search a place, view current conditions and forecast (Open-Meteo)."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State management: AsyncValue gives us Loading/Error/Success as first-class
+  # states instead of hand-rolled enums scattered across widgets.
+  flutter_riverpod: ^2.6.1
+
+  # HTTP client: interceptors + cancellation + typed errors.
+  dio: ^5.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          # 钉死版本，不要用 latest：Flutter 一升级，CI 就会以「和代码无关」的
+          # 方式随机变红，那种红没有人会去查，等于 CI 失效。升级应当是一次
+          # 有意的提交（改这里 + 本地 fvm 一起动）。
+          flutter-version: '3.44.6'
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # analyze 先跑：它比测试快，而且大部分错误在这里就暴露了。
+      - name: Analyze
+        run: flutter analyze --fatal-warnings
+
+      - name: Test
+        run: flutter test
